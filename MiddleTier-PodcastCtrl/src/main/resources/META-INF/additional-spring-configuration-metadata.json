@@ -1,0 +1,34 @@
+{
+  "properties": [
+    {
+      "name": "middle.tier.db.name",
+      "type": "java.lang.String",
+      "description": "Name of the process."
+    },
+    {
+      "name": "middle.tier.podcast.schedule",
+      "type": "java.lang.String",
+      "description": "CRON Schedule for when podcasts are downloaded."
+    },
+    {
+      "name": "middle.tier.podcast.schedule.ping",
+      "type": "java.lang.String",
+      "description": "CRON scheduled for when database ping is run."
+    },
+    {
+      "name": "middle.tier.podcast.db.url",
+      "type": "java.lang.String",
+      "description": "URL of the podcast database."
+    },
+    {
+      "name": "middle.tier.podcast.db.username",
+      "type": "java.lang.String",
+      "description": "Username for the podcast database."
+    },
+    {
+      "name": "middle.tier.podcast.db.password",
+      "type": "java.lang.String",
+      "description": "Password for the podcast database."
+    }
+  ]
+}
