@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.jbr.middle-podcast</groupId>
+    <artifactId>MiddleTier-Podcast</artifactId>
+    <name>MiddleTier-Podcast</name>
+    <version>0.1-dbg-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <build>
+        <defaultGoal>install</defaultGoal>
+    </build>
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <org.springframework.version>2.1.4.RELEASE</org.springframework.version>
+    </properties>
+
+    <modules>
+        <module>MiddleTier-PodcastDB</module>
+        <module>MiddleTier-PodcastCtrl</module>
+    </modules>
+
+
+    <distributionManagement>
+        <repository>
+            <id>Releases</id>
+            <name>Internal Releases</name>
+            <url>${repository.url}/maven-releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>Snapshots</id>
+            <name>Internal Releases</name>
+            <url>${repository.url}/maven-snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+</project>

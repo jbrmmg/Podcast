@@ -1,0 +1,24 @@
+{
+  "properties": [
+    {
+      "name": "middle.tier.podcast.schedule",
+      "type": "java.lang.String",
+      "description": "Schedule to read podcasts."
+    },
+    {
+      "name": "middle.tier.log.db.url",
+      "type": "java.lang.String",
+      "description": "URL for logging."
+    },
+    {
+      "name": "middle.tier.log.db.username",
+      "type": "java.lang.String",
+      "description": "Username for database."
+    },
+    {
+      "name": "middle.tier.log.db.password",
+      "type": "java.lang.String",
+      "description": "Password for password."
+    }
+  ]
+}
