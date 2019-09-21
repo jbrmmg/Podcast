@@ -125,7 +125,7 @@ class RSSPodcastFeedParser {
                             episode.get().update(podcastItem);
                         }
 
-                        LOG.info("Podcast {}",guid);
+                        LOG.debug("Podcast {}",guid);
 
                         podcastRepository.save(episode.get());
                     }
