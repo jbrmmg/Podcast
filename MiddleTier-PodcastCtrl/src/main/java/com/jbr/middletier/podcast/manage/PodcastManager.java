@@ -53,7 +53,7 @@ public class PodcastManager {
         this.podcastRepository = podcastRepository;
         this.podcastEpisodeRepository = podcastEpisodeRepository;
 
-        LOG.debug("Podcast Manager started up.");
+        LOG.info("Podcast Manager started up.");
     }
 
     private void downloadData(List<Podcast> podcastList) {
