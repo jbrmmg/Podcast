@@ -17,6 +17,9 @@ databaseChangeLog:
                   name: source
                   type: varchar(250)
               - column:
+                  name: title
+                  type: varchar(250)
+              - column:
                   name: filename
                   type: varchar(100)
               - column:
@@ -36,6 +39,9 @@ databaseChangeLog:
                   type: boolean
               - column:
                   name: createdate
+                  type: int(11)
+              - column:
+                  name: updatedate
                   type: int(11)
 
         - addForeignKeyConstraint:

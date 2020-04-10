@@ -20,7 +20,7 @@ public class PodcastEpisode {
     @Column(name="guid")
     private String guid;
 
-    @Column(name="`source`")
+    @Column(name="source")
     private String source;
 
     @Column(name="title")
@@ -51,6 +51,8 @@ public class PodcastEpisode {
 
     @Column(name="updatedate")
     private int updateDate;
+
+    public PodcastEpisode() {}
 
     @Override
     public String toString() {
