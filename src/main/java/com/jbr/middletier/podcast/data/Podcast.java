@@ -33,20 +33,25 @@ public class Podcast {
     protected Podcast() { }
 
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public String getSource() {
-        return source;
+        return this.source;
     }
 
     public String getDirectory() {
-        return directory;
+        return this.directory;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
-    public Boolean useDateInFilename() { return this.datefile; }
+    public Boolean getDatefile() { return this.datefile; }
+
+    @Override
+    public String toString() {
+        return this.id + ":" + this.source + ":" + this.directory + ":" + this.name + ":" + ( this.datefile ? "Y" : "N" );
+    }
 }

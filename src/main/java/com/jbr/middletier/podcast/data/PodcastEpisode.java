@@ -52,7 +52,20 @@ public class PodcastEpisode {
     @Column(name="updatedate")
     private int updateDate;
 
-    private PodcastEpisode() { }
+    @Override
+    public String toString() {
+        return this.guid + ":" +
+                this.source + ":" +
+                this.title + ":" +
+                this.filename + ":" +
+                (this.fileExists ? "Y" : "N") + ":" +
+                this.fileSize + ":" +
+                this.podcast.toString() + ":" +
+                (this.deleteFile ? "Y" : "N") + ":" +
+                (this.ignore ? "Y" : "N") + ":" +
+                this.createDate + ":" +
+                this.updateDate;
+    }
 
     private String getFilenameFromUrn(PodcastItem source) {
         LOG.info("Get filename from URN : {}",source.getGuid());
@@ -113,7 +126,7 @@ public class PodcastEpisode {
     {
         this.guid = source.getGuid();
         this.source = source.getSourceURL();
-        this.filename = getFilename(source,podcast.useDateInFilename());
+        this.filename = getFilename(source,podcast.getDatefile());
         this.fileSize = source.getFileSize();
         this.fileExists = false;
         this.deleteFile = false;

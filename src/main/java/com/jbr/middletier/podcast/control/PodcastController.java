@@ -36,7 +36,7 @@ class PodcastController {
     }
 
     @RequestMapping(path="/int/podcast", method= RequestMethod.POST)
-    public @ResponseBody StatusResponse createPodcast(Podcast newPodcast) {
+    public @ResponseBody StatusResponse createPodcast(@RequestBody Podcast newPodcast) {
         LOG.info("Create new podcast.");
 
         if(this.podcastRepository.existsById(newPodcast.getId())) {
@@ -49,7 +49,7 @@ class PodcastController {
     }
 
     @RequestMapping(path="/int/podcast", method= RequestMethod.PUT)
-    public @ResponseBody StatusResponse updatePodcast(Podcast newPodcast) {
+    public @ResponseBody StatusResponse updatePodcast(@RequestBody Podcast newPodcast) {
         LOG.info("Update podcast.");
 
         Optional<Podcast> existingPodcast = this.podcastRepository.findById(newPodcast.getId());
@@ -64,7 +64,7 @@ class PodcastController {
     }
 
     @RequestMapping(path="/int/podcast", method= RequestMethod.DELETE)
-    public @ResponseBody StatusResponse deletePodcast(Podcast deletePodcast) {
+    public @ResponseBody StatusResponse deletePodcast(@RequestBody Podcast deletePodcast) {
         LOG.info("Delete podcast");
 
         Optional<Podcast> existingPodcast = this.podcastRepository.findById(deletePodcast.getId());
