@@ -1,0 +1,36 @@
+spring:
+  datasource:
+    url: ${db.pdn.podcast.server}?autoReconnect=true&useSSL=false
+    username: ${db.pdn.podcast.user}
+    password: ${db.pdn.podcast.password}
+
+  boot:
+    admin:
+      client:
+        url: ${spring.admin.clienturl}
+
+  application:
+    name: Middle Tier Podcast
+
+  h2:
+    console:
+      enabled: false
+
+logging.file: /var/log/jbr/MiddleTier-Podcast.log
+logging:
+  file:
+    max-history: 3
+    max-size: 100MB
+
+server:
+  port: 12009
+
+info:
+  app:
+    version: Development
+
+podcast:
+  service-name: "Middle Tier Podcast"
+  days-to-keep: 30
+  deleted-directory: /home/jason/Working/OldPods
+  schedule: 30 15 3 * * ?
