@@ -149,37 +149,39 @@ public class PodcastEpisode {
     }
 
     public String getId() {
-        return guid;
+        return this.guid;
     }
 
     public String getSource() {
-        return source;
+        return this.source;
     }
 
     public String getFilename() {
-        return filename;
+        return this.filename;
     }
 
     public Boolean fileExists() {
-        return fileExists;
+        return this.fileExists;
     }
+
+    public String getTitle() { return this.title; }
 
     public void fileCreated() { this.fileExists = true; }
 
     public Boolean deleteFile() {
-        return deleteFile;
+        return this.deleteFile;
     }
 
     public Boolean ignore() {
-        return ignore;
+        return this.ignore;
     }
 
     public int getCreateDate() {
-        return createDate;
+        return this.createDate;
     }
 
     public int getUpdateDate() {
-        return updateDate;
+        return this.updateDate;
     }
 
     public void markForDelete() {

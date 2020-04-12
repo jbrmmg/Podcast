@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: 999
+      author: jason
+      context: dbg
+      changes:
+
+        - insert:
+            tableName: podcast
+            columns:
+              - column:
+                  name: id
+                  value: COTW
+              - column:
+                  name: source
+                  value: https://podcasts.files.bbci.co.uk/p02pc9x6.rss
+              - column:
+                  name: directory
+                  value: /home/jason/Working/DbgPods
+              - column:
+                  name: name
+                  value: Comedy of the Week
+              - column:
+                  name: datefile
+                  valueBoolean: true

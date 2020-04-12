@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: jason
+      changes:
+
+        - createTable:
+            tableName: reminder
+            columns:
+              - column:
+                  name: what
+                  type: char(10)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: details
+                  type: varchar(300)
