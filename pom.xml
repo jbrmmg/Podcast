@@ -144,4 +144,18 @@
             <version>1.4.199</version>
         </dependency>
     </dependencies>
+
+
+    <distributionManagement>
+        <repository>
+            <id>Releases</id>
+            <name>Internal Releases</name>
+            <url>${repository.url}/maven-releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>Snapshots</id>
+            <name>Internal Releases</name>
+            <url>${repository.url}/maven-snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
