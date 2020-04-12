@@ -6,6 +6,7 @@ import com.jbr.middletier.podcast.data.Reminder;
 import com.jbr.middletier.podcast.data.StatusResponse;
 import com.jbr.middletier.podcast.dataaccess.PodcastEpisodeRepository;
 import com.jbr.middletier.podcast.dataaccess.PodcastEpisodeSpecifications;
+import com.jbr.middletier.podcast.dataaccess.PodcastRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +23,14 @@ public class PodcastEpisodeController {
     final static private Logger LOG = LoggerFactory.getLogger(PodcastEpisodeController.class);
 
     private final PodcastEpisodeRepository podcastEpisodeRepository;
+    private final PodcastRepository podcastRepository;
 
     @Autowired
     public PodcastEpisodeController(
-            PodcastEpisodeRepository podcastEpisodeRepository) {
+            PodcastEpisodeRepository podcastEpisodeRepository,
+            PodcastRepository podcastRepository ) {
         this.podcastEpisodeRepository = podcastEpisodeRepository;
+        this.podcastRepository = podcastRepository;
     }
 
     @RequestMapping(path="/ext/podcastepisode", method= RequestMethod.DELETE) public @ResponseBody
@@ -47,10 +51,16 @@ public class PodcastEpisodeController {
 
     @RequestMapping(path="/ext/podcastepisode", method= RequestMethod.GET)
     public @ResponseBody
-    List getPodcasts(@RequestParam(value="podcastId", defaultValue="UNKN") String podcastId) {
+    List getPodcasts(@RequestParam(value="podcastId", defaultValue="UNKN") String podcastId) throws Exception {
         LOG.info("Request for podcast episodes.");
+
+        Optional<Podcast> existing = podcastRepository.findById(podcastId);
+        if(!existing.isPresent()) {
+            throw new Exception("Invalid id");
+        }
+
         //noinspection unchecked
-        return podcastEpisodeRepository.findAll(Specification.where(PodcastEpisodeSpecifications.episodeParentPodcast(podcastId)).and(PodcastEpisodeSpecifications.notIgnored()));
+        return podcastEpisodeRepository.findAll(Specification.where(PodcastEpisodeSpecifications.episodeParentPodcast(existing.get())).and(PodcastEpisodeSpecifications.notIgnored()));
     }
 
     @RequestMapping(path="/int/podcastepisode", method= RequestMethod.PUT)

@@ -105,7 +105,7 @@ public class PodcastManager {
     private void downloadFiles(List<Podcast> podcastList) {
         try {
             for (Podcast podcast : podcastList) {
-                List<PodcastEpisode> episodeList = (List<PodcastEpisode>) podcastEpisodeRepository.findAll(Specification.where(episodeToDownload()).and(episodeParentPodcast(podcast.getId())));
+                List<PodcastEpisode> episodeList = (List<PodcastEpisode>) podcastEpisodeRepository.findAll(Specification.where(episodeToDownload()).and(episodeParentPodcast(podcast)));
 
                 for (PodcastEpisode episode : episodeList) {
                     downloadFile ( podcast, episode );
@@ -131,7 +131,7 @@ public class PodcastManager {
         try {
             for (Podcast podcast : podcastList) {
                 @SuppressWarnings("unchecked")
-                List<PodcastEpisode> episodeList = (List<PodcastEpisode>) podcastEpisodeRepository.findAll(Specification.where(episodeParentPodcast(podcast.getId())));
+                List<PodcastEpisode> episodeList = (List<PodcastEpisode>) podcastEpisodeRepository.findAll(Specification.where(episodeParentPodcast(podcast)));
 
                 // Get a list of files in the directory.
                 File folder = new File(podcast.getDirectory());
@@ -228,7 +228,7 @@ public class PodcastManager {
 
             for (Podcast podcast : podcastList) {
                 @SuppressWarnings("unchecked")
-                List<PodcastEpisode> episodeList = (List<PodcastEpisode>) podcastEpisodeRepository.findAll(Specification.where(episodeParentPodcast(podcast.getId())));
+                List<PodcastEpisode> episodeList = (List<PodcastEpisode>) podcastEpisodeRepository.findAll(Specification.where(episodeParentPodcast(podcast)));
 
                 for(PodcastEpisode podcastEpisode : episodeList) {
                     // Does the file for this episode exist?
