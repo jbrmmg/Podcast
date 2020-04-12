@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: ${db.dev.money.server}?autoReconnect=true&useSSL=false
-    username: ${db.dev.money.user}
-    password: ${db.dev.money.password}
+    url: ${db.dev.podcast.server}?autoReconnect=true&useSSL=false
+    username: ${db.dev.podcast.user}
+    password: ${db.dev.podcast.password}
 
   boot:
     admin:
@@ -25,9 +25,12 @@ logging:
 server:
   port: 10009
 
-money:
-  service-name: "Middle Tier Development"
-
 info:
   app:
     version: Development
+
+podcast:
+  service-name: "Middle Tier Podcast (dev)"
+  days-to-keep: 5
+  deleted-directory: /home/jason/Working/Dev/DevPods/
+  schedule: 30 15 4 * * ?
