@@ -35,7 +35,7 @@ databaseChangeLog:
                   name: fileexists
                   type: boolean
               - column:
-                  name: ignore
+                  name: ignoreepisode
                   type: boolean
               - column:
                   name: createdate
