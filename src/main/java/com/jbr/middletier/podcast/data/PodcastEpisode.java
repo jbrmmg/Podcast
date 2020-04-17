@@ -43,7 +43,7 @@ public class PodcastEpisode {
     @Column(name="deletefile")
     private Boolean deleteFile;
 
-    @Column(name="ignore")
+    @Column(name="ignoreepisode")
     private Boolean ignore;
 
     @Column(name="createdate")
