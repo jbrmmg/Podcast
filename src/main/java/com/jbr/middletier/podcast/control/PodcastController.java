@@ -29,13 +29,13 @@ class PodcastController {
         this.podcastRepository = podcastRepository;
     }
 
-    @RequestMapping(path="/ext/podcast", method= RequestMethod.GET)
+    @RequestMapping(path="/ext/podcast/type", method= RequestMethod.GET)
     public @ResponseBody Iterable<Podcast> getPodcasts() {
         LOG.info("Request for podcasts.");
         return podcastRepository.findAll();
     }
 
-    @RequestMapping(path="/int/podcast", method= RequestMethod.POST)
+    @RequestMapping(path="/int/podcast/type", method= RequestMethod.POST)
     public @ResponseBody StatusResponse createPodcast(@RequestBody Podcast newPodcast) {
         LOG.info("Create new podcast.");
 
@@ -48,7 +48,7 @@ class PodcastController {
         return new StatusResponse();
     }
 
-    @RequestMapping(path="/int/podcast", method= RequestMethod.PUT)
+    @RequestMapping(path="/int/podcast/type", method= RequestMethod.PUT)
     public @ResponseBody StatusResponse updatePodcast(@RequestBody Podcast newPodcast) {
         LOG.info("Update podcast.");
 
@@ -63,7 +63,7 @@ class PodcastController {
         return new StatusResponse();
     }
 
-    @RequestMapping(path="/int/podcast", method= RequestMethod.DELETE)
+    @RequestMapping(path="/int/podcast/type", method= RequestMethod.DELETE)
     public @ResponseBody StatusResponse deletePodcast(@RequestBody Podcast deletePodcast) {
         LOG.info("Delete podcast");
 
