@@ -33,7 +33,7 @@ public class PodcastEpisodeController {
         this.podcastRepository = podcastRepository;
     }
 
-    @RequestMapping(path="/ext/podcastepisode", method= RequestMethod.DELETE) public @ResponseBody
+    @RequestMapping(path="/ext/podcast/episode", method= RequestMethod.DELETE) public @ResponseBody
     StatusResponse deletePodcast(@RequestParam(value="podcastId", defaultValue="0") String podcastId) {
         LOG.info("Request to delete podcast - " + podcastId);
 
@@ -49,7 +49,7 @@ public class PodcastEpisodeController {
         return new StatusResponse("Did not find podcast");
     }
 
-    @RequestMapping(path="/ext/podcastepisode", method= RequestMethod.GET)
+    @RequestMapping(path="/ext/podcast/episode", method= RequestMethod.GET)
     public @ResponseBody
     List getPodcasts(@RequestParam(value="podcastId", defaultValue="UNKN") String podcastId) throws Exception {
         LOG.info("Request for podcast episodes.");
@@ -63,7 +63,7 @@ public class PodcastEpisodeController {
         return podcastEpisodeRepository.findAll(Specification.where(PodcastEpisodeSpecifications.episodeParentPodcast(existing.get())).and(PodcastEpisodeSpecifications.notIgnored()));
     }
 
-    @RequestMapping(path="/int/podcastepisode", method= RequestMethod.PUT)
+    @RequestMapping(path="/int/podcast/episode", method= RequestMethod.PUT)
     public @ResponseBody
     StatusResponse updatePodcast(@RequestBody PodcastEpisode podcast) {
         LOG.info("Update podcase episode - " + podcast);
