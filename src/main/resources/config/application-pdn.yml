@@ -16,7 +16,7 @@ spring:
     console:
       enabled: false
 
-logging.file: /var/log/jbr/MiddleTier-Podcast.log
+logging.file: /var/log/jbr/MiddleTier-Podcast-PDN.log
 logging:
   file:
     max-history: 3
