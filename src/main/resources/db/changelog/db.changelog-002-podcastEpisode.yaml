@@ -1,0 +1,52 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: jason
+      changes:
+
+        - createTable:
+            tableName: podcastepisode
+            columns:
+              - column:
+                  name: guid
+                  type: varchar(100)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: source
+                  type: varchar(250)
+              - column:
+                  name: title
+                  type: varchar(250)
+              - column:
+                  name: filename
+                  type: varchar(100)
+              - column:
+                  name: filesize
+                  type: int(11)
+              - column:
+                  name: podcastid
+                  type: char(4)
+              - column:
+                  name: deletefile
+                  type: boolean
+              - column:
+                  name: fileexists
+                  type: boolean
+              - column:
+                  name: ignoreepisode
+                  type: boolean
+              - column:
+                  name: createdate
+                  type: int(11)
+              - column:
+                  name: updatedate
+                  type: int(11)
+
+        - addForeignKeyConstraint:
+            constraintName: fk_podcast_episode
+            baseTableName: podcastepisode
+            baseColumnNames: podcastid
+            referencedTableName: podcast
+            referencedColumnNames: id

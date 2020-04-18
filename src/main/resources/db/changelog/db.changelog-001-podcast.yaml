@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: jason
+      changes:
+
+        - createTable:
+            tableName: podcast
+            columns:
+              - column:
+                  name: id
+                  type: char(4)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: source
+                  type: varchar(300)
+              - column:
+                  name: directory
+                  type: varchar(300)
+              - column:
+                  name: name
+                  type: varchar(300)
+              - column:
+                  name: datefile
+                  type: boolean

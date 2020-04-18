@@ -1,0 +1,13 @@
+databaseChangeLog:
+
+  - include:
+      file: /db/changelog/db.changelog-001-podcast.yaml
+
+  - include:
+      file: /db/changelog/db.changelog-002-podcastEpisode.yaml
+
+  - include:
+      file: /db/changelog/db.changelog-003-reminder.yaml
+
+  - include:
+      file: /db/changelog/db.changelog-999-dbgdata.yaml

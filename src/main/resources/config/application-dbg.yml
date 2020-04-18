@@ -1,0 +1,25 @@
+logging:
+  level:
+    com.jbr.middletier: DEBUG
+    org.hibernate.type.descriptor.sql: TRACE
+
+spring:
+  liquibase:
+    contexts: dbg
+
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+
+server:
+  port: 13009
+
+info:
+  app:
+    version: Debug
+
+podcast:
+  days-to-keep: 5
+  deleted-directory: /home/jason/Working/Dev/OldPods/

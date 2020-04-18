@@ -1,0 +1,36 @@
+spring:
+  datasource:
+    url: ${db.dev.podcast.server}?autoReconnect=true&useSSL=false
+    username: ${db.dev.podcast.user}
+    password: ${db.dev.podcast.password}
+
+  boot:
+    admin:
+      client:
+        url: ${spring.admin.clienturl}
+
+  application:
+    name: Middle Tier Podcast (Development)
+
+  h2:
+    console:
+      enabled: false
+
+logging.file: /var/log/jbr/MiddleTier-Podcast-DEV.log
+logging:
+  file:
+    max-history: 3
+    max-size: 100MB
+
+server:
+  port: 10009
+
+info:
+  app:
+    version: Development
+
+podcast:
+  service-name: "Middle Tier Podcast (dev)"
+  days-to-keep: 5
+  deleted-directory: /home/jason/Working/Dev/DevPods/
+  schedule: 30 15 4 * * ?
