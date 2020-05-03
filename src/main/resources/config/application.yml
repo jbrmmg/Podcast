@@ -33,6 +33,7 @@ podcast:
   days-to-keep: 30
   deleted-directory:
   schedule: 30 15 3 * * ?
+  web-log-url: http://localhost:10001/jbr/int/log/data
 
 management:
   endpoint:

@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 /**
  * Created by jason on 25/12/16.
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "WeakerAccess"})
 @Entity
 @Table(name="podcast")
 public class Podcast {

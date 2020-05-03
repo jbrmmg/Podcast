@@ -8,6 +8,7 @@ public class ApplicationProperties {
     private String logType;
     private String deletedDirectory;
     private int daysToKeep;
+    private String webLogUrl;
 
     public void setServiceName(String serviceName) { this.serviceName = serviceName; }
 
@@ -17,6 +18,8 @@ public class ApplicationProperties {
 
     public void setDaysToKeep(int daysToKeep) { this.daysToKeep = daysToKeep; }
 
+    public void setWebLogUrl(String webLogUrl) { this.webLogUrl = webLogUrl; }
+
     public String getServiceName() { return this.serviceName; }
 
     public String getLogType() { return this.logType; }
@@ -24,4 +27,6 @@ public class ApplicationProperties {
     public String getDeletedDirectory() { return this.deletedDirectory; }
 
     public int getDaysToKeep() { return this.daysToKeep; }
+
+    public String getWebLogUrl() { return this.webLogUrl; }
 }

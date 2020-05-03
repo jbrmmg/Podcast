@@ -1,8 +1,9 @@
 package com.jbr.middletier.podcast.data;
 
+@SuppressWarnings("unused")
 public class StatusResponse {
-    public String status;
-    public String message;
+    private String status;
+    private String message;
 
     public StatusResponse() {
         status = "OK";

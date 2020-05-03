@@ -8,10 +8,15 @@ import com.jbr.middletier.podcast.dataaccess.PodcastRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.net.URL;
@@ -39,27 +44,36 @@ public class PodcastManager {
     private final ApplicationProperties applicationProperties;
     private final PodcastRepository podcastRepository;
     private final PodcastEpisodeRepository podcastEpisodeRepository;
+    private final RestTemplateBuilder restTemplateBuilder;
 
     @Autowired
     public PodcastManager(
             ApplicationProperties applicationProperties,
             PodcastRepository podcastRepository,
-            PodcastEpisodeRepository podcastEpisodeRepository) {
+            PodcastEpisodeRepository podcastEpisodeRepository,
+            RestTemplateBuilder restTemplateBuilder) {
         this.applicationProperties = applicationProperties;
         this.podcastRepository = podcastRepository;
         this.podcastEpisodeRepository = podcastEpisodeRepository;
+        this.restTemplateBuilder = restTemplateBuilder;
 
         LOG.info("Podcast Manager started up.");
+    }
+
+    @PostConstruct
+    public void initialise() {
+        postWebLog(webLogLevel.INFO, applicationProperties.getServiceName() + " starting up.");
     }
 
     private void downloadData(List<Podcast> podcastList) {
         for (Podcast podcast : podcastList) {
             try {
-                RSSPodcastFeedParser parser = new RSSPodcastFeedParser(applicationProperties.getLogType(), podcastEpisodeRepository, podcast);
+                RSSPodcastFeedParser parser = new RSSPodcastFeedParser(podcastEpisodeRepository, podcast);
                 LOG.info(String.format("Find podcast %s.", podcast.getSource()));
                 parser.readFeed(podcast);
             } catch(Exception error) {
                 LOG.error("Failed to download data.", error);
+                postWebLog(webLogLevel.ERROR,"download data " + error);
             }
         }
     }
@@ -70,6 +84,7 @@ public class PodcastManager {
             Files.deleteIfExists(f.toPath());
         } catch(Exception e) {
             LOG.warn(String.format("Error deleting file: %s", filename));
+            postWebLog(webLogLevel.ERROR,"delete file error " + e);
         }
     }
 
@@ -80,6 +95,7 @@ public class PodcastManager {
                 return;
             }
 
+            postWebLog(webLogLevel.INFO,String.format("Download %s",episode.getId()));
             LOG.info(String.format("Download %s",episode.getId()));
 
             URL website = new URL(episode.getSource());
@@ -98,6 +114,7 @@ public class PodcastManager {
             LOG.info(String.format("%s downloaded.",String.format("%s//%s",podcast.getDirectory(),episode.getFilename())));
         } catch (Exception error) {
             LOG.error(String.format("Failed to download file %s.",episode.getId()), error);
+            postWebLog(webLogLevel.ERROR,"downloadfile error " + error);
         }
     }
 
@@ -113,6 +130,7 @@ public class PodcastManager {
             }
         } catch (Exception error) {
             LOG.error("Failed to download files.", error);
+            postWebLog(webLogLevel.ERROR,"downloadFiles error " + error);
         }
     }
 
@@ -153,6 +171,7 @@ public class PodcastManager {
             }
         } catch (Exception error) {
             LOG.error("Failed to find extra files.", error);
+            postWebLog(webLogLevel.ERROR,"findExtraFiles error " + error);
         }
     }
 
@@ -181,6 +200,7 @@ public class PodcastManager {
             }
         } catch (Exception error) {
             LOG.error(String.format("Failed to touch file %s",filename), error);
+            postWebLog(webLogLevel.ERROR,"touchFile error " + error);
         }
     }
 
@@ -213,6 +233,7 @@ public class PodcastManager {
             updateOrDeleteRecord(episode);
         } catch (Exception error) {
             LOG.error(String.format("Failed to delete file %s",episode.getId()), error);
+            postWebLog(webLogLevel.ERROR,"deleteFile error " + error);
         }
     }
 
@@ -248,6 +269,7 @@ public class PodcastManager {
             }
         } catch (Exception error) {
             LOG.error("Failed to check for files to remove.", error);
+            postWebLog(webLogLevel.ERROR,"checkForFilesToRemove error " + error);
         }
     }
 
@@ -283,6 +305,7 @@ public class PodcastManager {
             }
         } catch (Exception error) {
             LOG.error("Failed to remove old pod files.", error);
+            postWebLog(webLogLevel.ERROR,"removeOldFiles error " + error);
         }
     }
 
@@ -303,5 +326,57 @@ public class PodcastManager {
 
         // Check for files to remove.
         checkForFilesToRemove(podcastList);
+
+        postWebLog(webLogLevel.INFO,"Download completed.");
+    }
+
+    public enum webLogLevel { DEBUG, INFO, WARN, ERROR }
+
+    public void postWebLog(webLogLevel level, String message) {
+        try {
+            RestTemplate restTemplate = this.restTemplateBuilder.build();
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+
+            StringBuilder requestJson = new StringBuilder();
+
+            requestJson.append("{");
+
+            requestJson.append("\"levelString\": \"");
+            switch (level) {
+                case DEBUG:
+                    requestJson.append("DEBUG");
+                    break;
+                case INFO:
+                    requestJson.append("INFO");
+                    break;
+                case WARN:
+                    requestJson.append("WARN");
+                    break;
+                case ERROR:
+                    requestJson.append("ERROR");
+                    break;
+            }
+            requestJson.append("\",");
+
+            requestJson.append("\"formattedMessage\": \"");
+            requestJson.append(message);
+            requestJson.append("\",");
+
+            requestJson.append("\"callerFilename\": \"PodcastManger.java\",");
+            requestJson.append("\"callerLine\": \"0\",");
+            requestJson.append("\"callerMethod\": \"postWebLog\",");
+            requestJson.append("\"loggerName\": \"Podcast Logger\",");
+
+            requestJson.append("\"callerClass\": \"com.jbr.middletier.podcast.manage\"");
+            requestJson.append("}");
+
+            HttpEntity<String> request = new HttpEntity<>(requestJson.toString(), headers);
+
+            restTemplate.postForEntity(applicationProperties.getWebLogUrl(), request,String.class);
+        } catch(Exception ex) {
+            LOG.warn("Unable to post to web log.",ex);
+        }
     }
 }
