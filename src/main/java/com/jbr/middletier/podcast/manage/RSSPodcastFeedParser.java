@@ -29,34 +29,26 @@ class RSSPodcastFeedParser {
 
     private static final String TITLE = "title";
     private static final String DESCRIPTION = "description";
-    static final String CHANNEL = "channel";
-    private static final String LANGUAGE = "language";
-    private static final String COPYRIGHT = "copyright";
-    private static final String LINK = "link";
     private static final String AUTHOR = "author";
     private static final String ITEM = "item";
     private static final String PUB_DATE = "pubDate";
     private static final String GUID = "guid";
-    private static final String MEDIA_CONTENT = "media:content";
     private static final String ENCLOSURE = "enclosure";
 
     private final URL url;
 
     private PodcastEpisodeRepository podcastRepository;
-    private String logType;
 
-    public RSSPodcastFeedParser(String logType, PodcastEpisodeRepository podcastRepository, com.jbr.middletier.podcast.data.Podcast source) {
+    RSSPodcastFeedParser(PodcastEpisodeRepository podcastRepository, com.jbr.middletier.podcast.data.Podcast source) {
         try {
             this.podcastRepository = podcastRepository;
             this.url = new URL(source.getSource());
-            this.logType = logType;
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    @SuppressWarnings("ConstantConditions")
-    public void readFeed(Podcast sourcePodcast) {
+    void readFeed(Podcast sourcePodcast) {
         try {
             boolean isFeedHeader = true;
             // Set header values initial to the empty string

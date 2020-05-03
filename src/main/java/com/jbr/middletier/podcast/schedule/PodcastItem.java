@@ -7,6 +7,7 @@ import java.util.Date;
 /**
  * Created by jason on 27/12/16.
  */
+@SuppressWarnings("unused")
 public class PodcastItem {
     private String title;
     private String description;

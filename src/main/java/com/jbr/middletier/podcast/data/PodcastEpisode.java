@@ -11,6 +11,7 @@ import java.util.Calendar;
 /**
  * Created by jason on 25/12/16.
  */
+@SuppressWarnings("unused")
 @Entity
 @Table(name="podcastepisode")
 public class PodcastEpisode {
@@ -51,8 +52,6 @@ public class PodcastEpisode {
 
     @Column(name="updatedate")
     private int updateDate;
-
-    public PodcastEpisode() {}
 
     @Override
     public String toString() {
@@ -122,6 +121,9 @@ public class PodcastEpisode {
         Calendar cal = Calendar.getInstance();
         this.createDate = cal.get(Calendar.YEAR) * 10000 + (cal.get(Calendar.MONTH) + 1) * 100 + cal.get(Calendar.DAY_OF_MONTH);
         this.updateDate = this.createDate;
+    }
+
+    public PodcastEpisode() {
     }
 
     public PodcastEpisode(Podcast podcast, PodcastItem source)
@@ -203,6 +205,7 @@ public class PodcastEpisode {
         int updateMonth = (updateDate - updateYear * 1000) / 100;
         int updateDay =  updateDate - updateYear * 1000 - updateMonth * 100;
 
+        //noinspection MagicConstant
         updateDateCal.set(updateYear, updateMonth, updateDay);
 
         return updateDateCal.after(recentDate);

@@ -30,6 +30,7 @@ class Force {
     public @ResponseBody
     StatusResponse podcastDownload() {
         LOG.info("Force - perform the download.");
+        manager.postWebLog(PodcastManager.webLogLevel.INFO,"Force Download");
         manager.download();
         return new StatusResponse();
     }
