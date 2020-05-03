@@ -3,6 +3,7 @@ package com.jbr.middletier.podcast.control;
 import com.jbr.middletier.podcast.data.Reminder;
 import com.jbr.middletier.podcast.data.StatusResponse;
 import com.jbr.middletier.podcast.dataaccess.ReminderRespository;
+import com.jbr.middletier.podcast.manage.PodcastManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +20,22 @@ import java.util.Optional;
 public class ReminderController {
     final static private Logger LOG = LoggerFactory.getLogger(Force.class);
 
-    private final
-    ReminderRespository reminderRespository;
+    private final ReminderRespository reminderRespository;
+
+    private final PodcastManager podcastManager;
 
     @Autowired
-    public ReminderController(ReminderRespository reminderRespository) {
+    public ReminderController(ReminderRespository reminderRespository,
+                              PodcastManager podcastManager) {
         this.reminderRespository = reminderRespository;
+        this.podcastManager = podcastManager;
     }
 
     @RequestMapping(path="/ext/podcast/reminder", method= RequestMethod.POST)
     public @ResponseBody StatusResponse createReminder(@RequestBody Reminder reminder) {
         LOG.info("Create new reminder " + reminder);
+
+        podcastManager.postWebLog(PodcastManager.webLogLevel.INFO,"A reminder was created.");
 
         Optional<Reminder> existing = reminderRespository.findById(reminder.getWhat());
         if(existing.isPresent()) {

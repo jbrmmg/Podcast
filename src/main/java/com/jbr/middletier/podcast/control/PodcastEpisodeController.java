@@ -2,7 +2,6 @@ package com.jbr.middletier.podcast.control;
 
 import com.jbr.middletier.podcast.data.Podcast;
 import com.jbr.middletier.podcast.data.PodcastEpisode;
-import com.jbr.middletier.podcast.data.Reminder;
 import com.jbr.middletier.podcast.data.StatusResponse;
 import com.jbr.middletier.podcast.dataaccess.PodcastEpisodeRepository;
 import com.jbr.middletier.podcast.dataaccess.PodcastEpisodeSpecifications;
