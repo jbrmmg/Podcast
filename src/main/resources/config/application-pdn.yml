@@ -27,7 +27,7 @@ server:
 
 info:
   app:
-    version: Development
+    version: Production
 
 podcast:
   service-name: "Middle Tier Podcast"
