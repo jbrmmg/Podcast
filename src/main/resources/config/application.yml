@@ -28,7 +28,7 @@ spring:
     contexts: default
 
 podcast:
-  service-name: "Middle Tier Debug"
+  service-name: middletier-podcast-dbg
   log-type: PDCST
   days-to-keep: 30
   deleted-directory:

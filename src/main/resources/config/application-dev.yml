@@ -30,7 +30,7 @@ info:
     version: Development
 
 podcast:
-  service-name: "Middle Tier Podcast (dev)"
+  service-name: middletier-podcast-dev
   days-to-keep: 5
   deleted-directory: /home/jason/Working/Dev/DevPods/
   schedule: 30 15 4 * * ?
