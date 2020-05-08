@@ -30,7 +30,7 @@ info:
     version: Production
 
 podcast:
-  service-name: middletier-podcast-pdn
+  service-name: middletier-podcast
   days-to-keep: 30
   deleted-directory: /home/jason/Working/OldPods
   schedule: 30 15 3 * * ?
